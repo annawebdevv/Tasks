@@ -1,39 +1,65 @@
-// Write a function that will check if two given characters are the same case.
+// function dots(str){
+//     return str
+//   }
+//   console.log(dots('... + ...'),'......')
 
-// If either of the characters is not a letter, return -1
-// If both characters are the same case, return 1
-// If both characters are letters, but not the same case, return 0
+let num1= 0;
+let num2= 0;
+let result = 0
+let resInDots =''
 
-let typeOfCurrent=(x)=>{
-    if (typeof(x) === 'string' && x.match(/[a-zA-Z]/)){
-        return true
-    }
-    else {return false}
+let plus =()=>{
+     result = num1+num2
+     toNumb(result)
 }
-let isBothSrting = (x, y) =>{
-    if (typeOfCurrent(x) ===true  && typeOfCurrent(y) === true){
-        return true
-    }
-    else {return false}
+let minus =()=>{
+    result = num1-num2
+    toNumb(result)
 }
-let isUpperCase = (x) =>{
-    if (x == x.toUpperCase()){
-        return true
-    }
-    else {return false}
+let multiplication =()=>{
+    result = num1*num2
+    toNumb(result)
 }
-let isBothCase = (x,y)=>{
-    if (isUpperCase(x) === isUpperCase(y) ){
-        return true
-    }
-    else {return false}
-}
-let fn =(a, b)=>{
-    if (isBothSrting(a,b) != true){return console.log('-1')}
-    if(isBothSrting(a,b)===true && isBothCase(a,b)===true )
-    {return console.log('1')}
-    
-    else{return console.log('0')}
+let division =()=>{
+    result = num1/num2
+    toNumb(result)
 }
 
+let toNumb = (res) =>{
+    for (let i=1; i<= res; i++){
+        resInDots += '.'
+    }
+    return resInDots
+}
+
+let dots = (str)=>{
+    for( let i=0; i<str.length; i++){
+        if (str[i] == '.'){
+            num1++;
+        }
+        else break;
+    }
+   
+    for( let i=str.length-1; i>0; i--){
+        if (str[i] == '.'){
+            num2++;
+        }
+        else break;
+    }
+    if (str.includes('+')){
+        plus()
+     }
+     if (str.includes('-')){
+        minus()
+     }
+     if (str.includes('*')){
+        multiplication()
+     }
+     if (str.includes('/')){
+        division()
+     }
+    console.log(resInDots)
+}
+
+dots('....+..')
 
