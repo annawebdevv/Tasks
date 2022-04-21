@@ -3,7 +3,7 @@
 // If either of the characters is not a letter, return -1
 // If both characters are the same case, return 1
 // If both characters are letters, but not the same case, return 0
-//test
+
 let typeOfCurrent=(x)=>{
     if (typeof(x) === 'string' && x.match(/[a-zA-Z]/)){
         return true
