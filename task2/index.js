@@ -20,9 +20,9 @@ let result = [];
 
 for (let i = 0; i < arr.length; i++) {
   let isntNew = arr[i] in count;
-
   count[arr[i]] = isntNew ? ++count[arr[i]] : 1;
 }
+
 let countSorted = Object.entries(count).sort(
   ([, valA], [, valB]) => valB - valA
 ).flatMap(([a,b])=>Array.from({length:b},()=>a));
