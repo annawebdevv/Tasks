@@ -7,20 +7,17 @@ function App() {
   const [table, setTable] = useState([]);
   const [guests, setGuests] = useState([]);
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
-let endpoints = [
-  'http://goodsok.ru/mock-api/objects.php',
-  'http://goodsok.ru/mock-api/users.php',
-];
+  const prom = axios.get('http://goodsok.ru/mock-api/objects.php')
+  const prom2 = axios.get('http://goodsok.ru/mock-api/users.php')
+
 
   useEffect(() => {
-    axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
-      axios.spread(({data: tables}, {data:guests}) => {
-        setTable(tables)
-        setGuests(guests)
-      })
-    );
-  }, [endpoints]);
+    Promise.all([prom, prom2]).then(function(value){
+      setTable(value[0].data)  
+      setGuests(value[1].data) 
+    }
+)
+  }, []);
 
   return (
     <div className="App">
