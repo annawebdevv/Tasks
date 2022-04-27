@@ -1,13 +1,20 @@
-import TableItem from "./TableItem";
+import {TableItem} from "./TableItem";
 
-function Tables({ table, guests }) {
-
-    return (
-        <div>
-            {table.map(t => <TableItem id={t.id} type={t.type} top={t.top} left={t.left} key={t.id} guests={guests}/>)}
-        </div>
-    );
+function Tables({ tables, guests }) {
+  return (
+    <div>
+      {tables.map((table) => (
+        <TableItem
+          id={table.id}
+          type={table.type}
+          top={table.top}
+          left={table.left}
+          key={table.id}
+          guests={guests}
+        />
+      ))}
+    </div>
+  );
 }
-
 
 export default Tables;
