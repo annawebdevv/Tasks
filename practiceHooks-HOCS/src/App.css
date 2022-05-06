@@ -1,0 +1,34 @@
+.App {
+  text-align: center;
+padding: 30px;
+}
+.App.dark {
+  background-color: #000;
+  color:#fff
+}
+button{
+  margin-right: 10px;
+  margin-bottom: 7px;
+  background-color: rgb(89, 181, 89);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  padding: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover{
+  background-color: rgb(14, 128, 14);
+}
+button:active{
+  background-color: rgb(8, 72, 8);
+  transform: scale(0.98);
+}
+.message{
+  background-color: rgba(101, 185, 101, 0.824);
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
