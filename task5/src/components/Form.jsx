@@ -1,86 +1,70 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addPost } from "./../store/todoSlice";
-import { Button } from "@mui/material";
+import{ useInput} from './../hooks/useInput';
 import styled from "styled-components";
-import { MyInput } from "./UI/Input";
 
 export const FormModal = ({ visibleModal, setVisibleModal }) => {
   const dispatch = useDispatch();
-  const [post, setPost] = useState({ title: "", text: "", author: "" });
-  const [error, setError] = useState({ title: false, author: false });
+  const [post, setPost] = useState({ title: "", body: "", author: "" });
+  const [varning, setVarning] = useState(false);
+  const title = useInput('h', true)
+  const author = useInput('h', true)
   const inputRef = useRef();
 
-  // useEffect(() => {
-  //   if (visibleModal === true) inputRef.current.focus();
-  // }, [visibleModal]);
 
-  const blurHandler = (e) => {
-    if (e.target.value === "") {
-      setError({ ...error, title: true });
-    }
-  };
+  useEffect(() => {
+    if (visibleModal === true) inputRef.current.focus();
+  }, [visibleModal]);
+
   const handleClick = (e) => {
     e.preventDefault();
 
-    // if ( post.title === "") {
-    //   setError({...error, title: true});
-    //   setVisibleModal(true);
-    //   return;
-    // }
-    // if (post.author === "" ){
-    //   setError({...error, author: true});
-    //   setVisibleModal(true);
-    //   return;
-    // }
-
+    if ( post.title === "" || post.author === "" ) {
+      setVisibleModal(true);
+      setVarning("Enter all required fields")
+      return;
+    }
     dispatch(addPost({ ...post }));
-    setPost({ title: "", text: "", author: "" });
+    setPost({ title: "", body: "", author: "" });
     setVisibleModal(false);
-    setError(false);
+    setVarning(false);
   };
 
   return (
     <Form>
-      {/* {error ? "Enter this fields" : ""} */}
-      {/* <MyInput ref={inputRef}
-        onBlur={blurHandler}
-        error={error.title}
+      {title.error && <span style={{ color: 'red'}}>{title.error}</span>}
+      <Input ref={inputRef}
+      {...title}
+      error={title.error}
         value={post.title}
         onChange={(e) => setPost({ ...post, title: e.target.value })}
         label="Title"
-        placeholder="Title"/> */}
+        placeholder="Title"/>
+
 
       <Input
-        ref={inputRef}
-        onBlur={blurHandler}
-        error={error.title}
-        value={post.title}
-        onChange={(e) => setPost({ ...post, title: e.target.value })}
-        label="Title"
-        placeholder="Title"
-      />
-      <Input
-        value={post.text}
-        onChange={(e) => setPost({ ...post, text: e.target.value })}
+        value={post.body}
+        onChange={(e) => setPost({ ...post, body: e.target.value })}
         label="Tetx"
         placeholder="Tetx"
       />
-      <Input
-        value={post.author}
-        error={error.author}
+            {author .error && <span style={{ color: 'red'}}>{author .error}</span>}
+           <Input 
+        {...author}
+        error={author.error}
         onChange={(e) => setPost({ ...post, author: e.target.value })}
+        value={post.author}
         label="Author"
         placeholder="Author"
-      />
+        /> 
 
-      <Button
+
+      <button
         onClick={handleClick}
-        className="form_button"
-        variant="contained"
-        color="success">
+        className="btn">
         Send Post
-      </Button>
+      </button>
     </Form>
   );
 };
@@ -90,7 +74,7 @@ const Input = styled.input`
   color: #5b5b5b;
   background: papayawhip;
   border: none;
-  outline: ${(props) => (props.error === true ? "2px solid red;" : "none")};
+  outline: ${(props) => (props.error != null ? "2px solid red;" : "none")};
   border-radius: 3px;
   margin-bottom: 10px;
   min-width: 100%;
@@ -98,7 +82,7 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    box-shadow: 0px 0px 5px green;
+    box-shadow: 0px 0px 5px  #943d2c;
   }
 `;
 

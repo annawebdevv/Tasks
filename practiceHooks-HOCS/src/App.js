@@ -9,12 +9,13 @@ import { HookUseInput } from './hooks/customsHooks/HookUseInput';
 import { HookUseTheme } from './hooks/customsHooks/HookUseTheme';
 
 import './App.css';
+import MyReactMemo from './HOCs/ReactMemo';
 
 function App() {
   console.log('rer')
   return (
     <div className="App">
-   
+{/*    
       <HookUseState/>
       <hr/>
       <HookUseEffect/>
@@ -30,6 +31,8 @@ function App() {
       <HookUseInput/>
       <hr/>
       <HookUseTheme/>
+      <hr/> */}
+      <MyReactMemo />
     </div>
   );
 }

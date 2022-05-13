@@ -27,4 +27,8 @@ const Fragment = styled.div`
   display: flex;
   align-items: baseline;
   margin-bottom: 10px;
+  @media (max-width: 420px) {
+    flex-direction: column-reverse;
+    
+  }
 `;

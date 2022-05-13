@@ -1,12 +1,12 @@
 
 import { useMemo } from "react";
-import { sort } from "./../sort";
+import { sort } from "../utils/sort";
 
 
 
 const useSortedPosts = (posts, selectSort) => {
 	const sortedPosts = useMemo(() => {
-		if (selectSort !== "") {
+		if (selectSort) {
 			return sort({ selectSort, posts });
 		}
 		return posts;

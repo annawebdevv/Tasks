@@ -3,11 +3,13 @@ import { useDispatch } from "react-redux";
 import { removePost, saveEditPost } from "./../store/todoSlice";
 import styled from "styled-components";
 
-export const PostItem = ({ id, title, text, author, date }) => {
+
+export const PostItem = ({ id, title, body, author, date }) => {
   const dispatch = useDispatch();
   const [editItem, setEditItem] = useState(false);
-  const [post, setPost] = useState({ title, text });
+  const [post, setPost] = useState({ title, body });
   const [error, setError] = useState(false);
+
 
   const savePost = () => {
     if (post.title === "") {
@@ -20,8 +22,12 @@ export const PostItem = ({ id, title, text, author, date }) => {
     dispatch(saveEditPost({ id, ...post }));
   };
 
+
   return (
-    <Card key={id}>
+
+    <div className="card" >
+
+
       {error ? "Enter title field" : ""}
       {editItem ? (
         <Input
@@ -33,21 +39,21 @@ export const PostItem = ({ id, title, text, author, date }) => {
           placeholder="Title"
         />
       ) : (
-        <h2>{title}</h2>
+        <Title>{title}</Title>
       )}
       {editItem ? (
         <Textarea
-          value={post.text}
-          onChange={(e) => setPost({ ...post, text: e.target.value })}
+          value={post.body}
+          onChange={(e) => setPost({ ...post, body: e.target.value })}
           label="Title"
           placeholder="Title"
         />
       ) : (
-        <p> {text}</p>
+        <Body> {body}</Body>
       )}
-      <hr />
-      Author: {author}
-      <h5> {date} </h5>
+
+     <Author> <b>Author: </b> {author} </Author>
+      <Date> {date} </Date>
       {editItem ? (
         <EditButton onClick={savePost}> Save </EditButton>
       ) : (
@@ -60,46 +66,59 @@ export const PostItem = ({ id, title, text, author, date }) => {
         </EditButton>
       )}
       <Button
-        onClick={() => {
-          dispatch(removePost({ id }));
+        onClick={()=>{
+          dispatch(removePost({id}))
         }}>
-        Detele
+        Delete
       </Button>
-    </Card>
+      </div>
+
   );
 };
 
+const Title = styled.h2`
+
+margin-bottom: 3px;
+`;
+const Body = styled.p`
+  margin-bottom: 25px;
+`;
+const Author = styled.p`
+  font-size:16px;
+  font-weight: 200;
+  color: #736d6e;
+  margin-bottom: 5px;
+`;
+const Date = styled.p`
+  font-size:16px;
+  font-weight: 200;
+  color: #736d6e;
+  
+  margin-bottom: 15px;
+`;
+
 const Button = styled.button`
   font-size: 22px;
-  color: red;
+  font-weight: 550;
+  color: #943D2c;
   border: none;
   position: absolute;
   bottom: 5px;
   right: 10px;
   background: none;
+  transition: color 0.3s ease;
   &:hover {
     cursor: pointer;
+    color: #000
   }
 `;
 const EditButton = styled(Button)`
-  color: green;
+  color: #e5bd77;
   margin-right: 90px;
 `;
-const Card = styled.div`
-  border: 1px solid gray;
-  margin-bottom: 10px !important;
-  max-width: 400px;
-  word-break: break-all;
-  display: flex;
-  flex-direction: column;
-  padding: 0.7em;
-  position: relative;
-  color: #5b5b5b;
-  font-size: 22px;
-  border-radius: 10px;
-  margin: 0;
-  overflow: auto;
-`;
+
+
+
 const Input = styled.input`
   padding: 10px;
   color: #5b5b5b;
@@ -111,7 +130,7 @@ const Input = styled.input`
   font-size: 22px;
   &:focus {
     outline: none;
-    box-shadow: 0px 0px 5px green;
+    box-shadow: 0px 0px 5px #943d2c;
   }
 `;
 const Textarea = styled.textarea`
@@ -126,6 +145,6 @@ const Textarea = styled.textarea`
   font-size: 22px;
   &:focus {
     outline: none;
-    box-shadow: 0px 0px 5px green;
+    box-shadow: 0px 0px 5px #943d2c;
   }
 `;
